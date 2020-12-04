@@ -1,0 +1,26 @@
+{
+    "todos":{
+        "1":[],
+        "2":[],
+        "3":[],
+        "4":[]
+    },
+    "users": {
+        "1":{
+            "name":"IronMan",
+            "password":"racecar"
+        },
+        "2":{
+           "name" :"CaptainAmerica",
+           "password":"racecar"
+        },
+        "3":{
+           "name" :"SpiderMan",
+           "password":"racecar"
+        },
+        "4":{
+           "name" :"Hulk",
+           "password":"racecar"
+        }
+    }
+}
