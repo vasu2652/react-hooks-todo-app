@@ -1,10 +1,10 @@
 {
-    "todos":{
-        "1":[],
-        "2":[],
-        "3":[],
-        "4":[]
-    },
+    "todos":[
+        "Learn HTML and CSS",
+    "Learn JavaScript(ES6+)",
+    "Design with Figma",
+    "Develop applications with 'React' and 'Material-UI'"
+    ],
     "users": {
         "1":{
             "name":"IronMan",

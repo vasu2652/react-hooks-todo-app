@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Store from "../context";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from '@material-ui/icons/Edit';
@@ -18,6 +18,7 @@ const TodoList = () => {
   const [open, setOpen] = useState(false);
   const [curTodo, setCurTodo] = useState("");
   const [curTodoId, setCurTodoId] = useState(null);
+  const [todos, setTodos] = useState([]);
   const handleOpen = (id) => {
     setCurTodoId(id);
     setCurTodo(state.todos[id])
@@ -32,13 +33,17 @@ const TodoList = () => {
         value: curTodo
       }
     })
+    
     setCurTodo("")
     setCurTodoId(null)
   }
   const handleClose = () => {
     setOpen(false);
   };
-  let count = state.todos.length;
+  useEffect(()=>{
+    fetch(`${state.baseUrl}todos`).then(res=>res.json).then(result=>setTodos(result))
+  })
+  let count = todos.length;
   let comment;
   if (count === 0) {
     comment = "So when you are free, start another work to get tired!";
@@ -57,7 +62,7 @@ const TodoList = () => {
           <br />
           <div>
             <List>
-              {state.todos.map((t, index) => (
+              {todos.map((t, index) => (
                 <ListItem divider key={t}>
                   <ListItemText primary={t} />
                   <ListItemSecondaryAction>

@@ -1,5 +1,6 @@
 import React, { useContext, useReducer } from "react";
 import ReactDOM from "react-dom";
+import { Router, Route, Switch, Redirect } from "react-router";
 
 // Add components
 import NavBar from "./components/NavBar";
@@ -17,10 +18,10 @@ import { createMuiTheme, CssBaseline, Container } from "@material-ui/core";
 
 const App = () => {
   const globalStore = usePersistedContext(useContext(Store), "state");
-  const [state, dispatch] = usePersistedReducer(
-    useReducer(reducer, globalStore),
-    "state"
-  );
+  // const [state, dispatch] = usePersistedReducer(
+  //   useReducer(reducer, globalStore),
+  //   "state"
+  // );
 
   const theme = createMuiTheme({
     palette: {
