@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import Store from "../context";
+import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -21,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TransitionsModal(props) {
-  console.log("Hey Stupid, Your poking me");
+  
   const classes = useStyles();
   return (
     <div>

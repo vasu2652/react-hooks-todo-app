@@ -8,7 +8,11 @@ const Store = React.createContext({
     "Develop applications with 'React' and 'Material-UI'",
   ],
   myTheme: "dark",
-  baseUrl: "http://localhost:3000/"
+  baseUrl: "http://localhost:3001",
+  headers:{
+    'Content-Type':"application/json"
+  },
+  user:null
 });
 
 export default Store;

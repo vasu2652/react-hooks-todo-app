@@ -14,35 +14,43 @@ import {
 } from "@material-ui/core";
 
 const TodoList = () => {
-  const { state, dispatch } = useContext(Store);
+  const { state:{ headers, baseUrl}, dispatch } = useContext(Store);
   const [open, setOpen] = useState(false);
+
   const [curTodo, setCurTodo] = useState("");
   const [curTodoId, setCurTodoId] = useState(null);
   const [todos, setTodos] = useState([]);
   const handleOpen = (id) => {
     setCurTodoId(id);
-    setCurTodo(state.todos[id])
+    setCurTodo(todos[id])
     setOpen(true);
   };
+
+  
   const handleEdit = () => {
     setOpen(false)
-    dispatch({
-      type: "EDIT",
-      payload:{
-        index: curTodoId,
-        value: curTodo
-      }
+    todos[curTodoId] = curTodoId
+    fetch({
+      method: 'PUT',
+      url: `${baseUrl}/todos`,
+      headers,
+      body: JSON.stringify(todos),
     })
-    
+    setTodos(todos);
     setCurTodo("")
     setCurTodoId(null)
   }
-  const handleClose = () => {
+  
+  const handleClose = () =>{
     setOpen(false);
-  };
+  }
+
+  
+  
   useEffect(()=>{
-    fetch(`${state.baseUrl}todos`).then(res=>res.json).then(result=>setTodos(result))
-  })
+    fetch(`${baseUrl}/todos`).then(res=>res.json()).then(setTodos)
+  },[baseUrl])
+
   let count = todos.length;
   let comment;
   if (count === 0) {

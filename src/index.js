@@ -1,11 +1,7 @@
 import React, { useContext, useReducer } from "react";
 import ReactDOM from "react-dom";
 import { Router, Route, Switch, Redirect } from "react-router";
-
-// Add components
-import NavBar from "./components/NavBar";
-import TodoForm from "./components/TodoForm";
-import TodoList from "./components/TodoList";
+import App from './components/App';
 
 //Add context, reducer and usePersist(LocalStorage)
 import Store from "./context";
@@ -18,11 +14,11 @@ import { createMuiTheme, CssBaseline, Container } from "@material-ui/core";
 
 const App = () => {
   const globalStore = usePersistedContext(useContext(Store), "state");
-  // const [state, dispatch] = usePersistedReducer(
-  //   useReducer(reducer, globalStore),
-  //   "state"
-  // );
-
+  const [state, dispatch] = usePersistedReducer(
+    useReducer(reducer, globalStore),
+    "state"
+  );
+    
   const theme = createMuiTheme({
     palette: {
       type: state.myTheme // "light" or "dark"
@@ -34,9 +30,7 @@ const App = () => {
       <Store.Provider value={{ state, dispatch }}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <NavBar />
-          <TodoForm />
-          <TodoList />
+          <App/>
         </ThemeProvider>
       </Store.Provider>
     </Container>

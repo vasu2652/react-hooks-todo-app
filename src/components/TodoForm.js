@@ -3,7 +3,7 @@ import { Box, IconButton, TextField } from "@material-ui/core";
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import Store from "../context";
 const TodoForm = () => {
-  const { dispatch } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const [todo, setTodo] = useState("");
   
   const handleTodoChange = e => {
@@ -11,12 +11,17 @@ const TodoForm = () => {
   };
 
   const handleSubmitForm = e => {
-    
     if (e.keyCode === 13) handleTodoAdd();
   };
 
   const handleTodoAdd = e => {
     dispatch({ type: "ADD_TODO", payload: todo });
+    fetch({
+      url: `${state.baseUrl}/todos`,
+      method: "POST",
+      headers: state.headers,
+      body: JSON.stringify(todo)
+    });
     setTodo("");
   };
 
