@@ -6,7 +6,8 @@ import {
   Toolbar,
   Typography,
   IconButton,
-  Tooltip
+  Tooltip,
+  Button
 } from "@material-ui/core";
 
 import Store from "../context";
@@ -70,7 +71,7 @@ const NavBar = () => {
 
       {/* this is header content */}
           <Typography variant="h6" className={classes.title}>
-            Todo List App
+            MindMajix User Dashboard
           </Typography>
 
         {/* this is theme toggler */}
@@ -79,7 +80,7 @@ const NavBar = () => {
               <ToggleButton />
             </IconButton>
           </Tooltip>
-
+        <Button color="inherit" onClick={()=>dispatch({type:"LOGOUT"})}>{state.user===null?"login":"logout"}</Button>
         </Toolbar>
       </AppBar>
       <NavDrawer drawerOpened={drawerOpened} toggleDrawer={toggleDrawer} />

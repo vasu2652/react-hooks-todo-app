@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,7 +15,7 @@ import Container from '@material-ui/core/Container';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Redirect } from 'react-router';
-
+import Store from '../context';
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -52,62 +52,77 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const BotoomSnack=({open, duration=5000, handleClose, message, severity, vertical="top", horizontal="center"})=>{
-  return (
-    <Snackbar anchorOrigin={{ vertical, horizontal }} open={open} autoHideDuration={duration} onClose={handleClose} key={vertical + horizontal} >
+export const TopSnackBar = (props)=>{
+    const {open, duration=5000, severity, message, handleClose, vertical="top", horizontal="center"} = props
+    return (
+        <Snackbar open={open} autoHideDuration={duration} onClose={handleClose} anchorOrigin={{ vertical, horizontal }} key={vertical + horizontal}>
         <Alert onClose={handleClose} severity={severity}>
           {message}
         </Alert>
       </Snackbar>
-  )
+    )
 }
 export default function SignIn() {
   const classes = useStyles();
-  const [redirect, setRedirect] = React.useState(false)
-  const [snack, setSnack] = React.useState({
-    open: false,
-    message: "",
-    severity: "sucess",
-  })
+  const { state, dispatch } = useContext(Store);
   const [formdata, setFormdata] = React.useState({
-    username:"",
-    password:""
-  })
+      username: "",
+      password: ""
+  });
+  const [snack, setSnack] = React.useState({
+      open: false,
+      message: "Default Message",
+      severity: "success"
+  });
+  const [redirect, setRedirect] = React.useState(false);
   const handleChange = (e, element)=>{
-    setFormdata({
-      ...formdata,
-      [element]:e.target.value
-    })
-  }
-  
-  const handleSubmit=()=>{
-    setSnack({
-      open: true,
-      severity: "error",
-      message: "Invalid Credentials"
-    });
-    //setRedirect(true)
-    //fetch(`http://localhost:3001/users?`)
+      console.log(e.target.value, element)
+      setFormdata({
+          ...formdata,
+          [element]: e.target.value
+      })
   }
   const validations = (element)=>{
     switch(element){
       case "username": {
-        return formdata.username.length<10?true:false;
+        return formdata.username.length<5?true:false;
       }
       case "password":{
-        return formdata.password.length<6?true:false;
+        return formdata.password.length<5?true:false;
       }
       default:{
         return false;
       }
     }
   }
-  if(redirect){
-    return <Redirect to="/"/>
+  const handleSubmit = ()=>{
+    fetch(`http://localhost:3001/users?name=${formdata.username}&password=${formdata.password}`).then(res=>res.json()).then(user=>{
+        if(user.length>0){
+            dispatch({
+              type:"LOGIN",
+              payload:user
+            })
+            setRedirect(true);
+        }
+        else{
+            setSnack({
+                open: true,
+                message: "invalid credentials",
+                severity: "error"
+            })
+            setFormdata({
+                ...formdata,
+                password: ""
+            })
+        }
+    })
+  }
+  if(redirect===true || state.user!==null){
+      return <Redirect to="/" />
   }
   return (
-    <>
-      <Container component="main" maxWidth="xs">
+    <React.Fragment>
+        <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -127,10 +142,10 @@ export default function SignIn() {
             name="username"
             autoComplete="username"
             autoFocus
-            onChange= {(e)=>handleChange(e,"username")}
             value={formdata.username}
+            onChange={(e)=>handleChange(e, "username")}
             error={validations("username")}
-            helperText = {validations("username")?"Enter a Valid username":""}
+            helperText = {validations("username")?"Enter a valid Username":""}
           />
           <TextField
             variant="outlined"
@@ -142,10 +157,10 @@ export default function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
-            onChange= {(e)=>handleChange(e,"password")}
             value={formdata.password}
+            onChange={(e)=>handleChange(e, "password")}
             error={validations("password")}
-            helperText = {validations("username")?"Minimum character length is 6":""}
+            helperText = {validations("username")?"Enter a password of Minimum 6 characters":""}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -157,9 +172,9 @@ export default function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick = {(e)=>{
-              e.preventDefault();
-              handleSubmit();
+            onClick={(e)=>{
+                e.preventDefault();
+                handleSubmit();
             }}
           >
             Sign In
@@ -182,12 +197,10 @@ export default function SignIn() {
         <Copyright />
       </Box>
     </Container>
-    <BotoomSnack open={snack.open} handleClose={()=>setSnack({
-      ...snack,
-      open: false
-    })} message={snack.message} severity={snack.severity} />
-    
-    </>
-    
+    <TopSnackBar open={snack.open} handleClose={()=>setSnack({
+        ...snack,
+        open: false
+    })} severity={snack.severity} message={snack.message} duration={4000}/>
+    </React.Fragment>
   );
 }

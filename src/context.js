@@ -7,7 +7,7 @@ const Store = React.createContext({
     "Design with Figma",
     "Develop applications with 'React' and 'Material-UI'",
   ],
-  myTheme: "dark",
+  myTheme: "light",
   baseUrl: "http://localhost:3001",
   headers:{
     'Content-Type':"application/json"

@@ -1,30 +1,50 @@
 
 // Add components
-import React from "react";
+import React, { useContext } from "react";
 import {
   Switch,
   Route
 } from "react-router-dom";
 import NavBar from "./NavBar";
-import TodoForm from "./TodoForm";
-import TodoList from "./TodoList";
-import SignIn from './SignIn';
+import SignIn from './login';
 import SignUp from './SignUp';
+import EnhancedTable from './DataTable';
+import Store from '../context';
+import { Redirect } from 'react-router';
 const Application = ()=>{
     return(
         <>
             <NavBar/>
-            <TodoForm/>
-            <TodoList/>
+            <EnhancedTable/>
         </>
     )
 }
-const App = ()=>{
+function PrivateRoute({ children, ...rest }) {
+  const { state } = useContext(Store);
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+         state.user!==null ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
+export default ()=>{
     return (
         <Switch>
-          <Route exact path="/">
+          <PrivateRoute exact path="/">
             <Application />
-          </Route>
+          </PrivateRoute>
           <Route path="/login">
             <SignIn />
           </Route>
@@ -32,7 +52,5 @@ const App = ()=>{
             <SignUp />
           </Route>
         </Switch>
-        
     )
 }
-export default App;

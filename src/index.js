@@ -1,7 +1,7 @@
 import React, { useContext, useReducer } from "react";
 import ReactDOM from "react-dom";
-import { Router, Route, Switch, Redirect } from "react-router";
-import App from './components/App';
+import { BrowserRouter as Router } from "react-router-dom";
+import MainApp from './components/App';
 
 //Add context, reducer and usePersist(LocalStorage)
 import Store from "./context";
@@ -27,12 +27,16 @@ const App = () => {
 
   return (
     <Container>
-      <Store.Provider value={{ state, dispatch }}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <App/>
-        </ThemeProvider>
-      </Store.Provider>
+      
+        <Store.Provider value={{ state, dispatch }}>
+          <ThemeProvider theme={theme}>
+          <Router>
+              <CssBaseline />
+              <MainApp/>
+            </Router>
+          </ThemeProvider>
+        </Store.Provider>
+      
     </Container>
   );
 };

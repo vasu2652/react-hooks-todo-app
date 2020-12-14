@@ -1,26 +1,55 @@
 {
-    "todos":[
-        "Learn HTML and CSS",
+  "todos": [
+    "Learn HTML and CSS",
     "Learn JavaScript(ES6+)",
     "Design with Figma",
     "Develop applications with 'React' and 'Material-UI'"
-    ],
-    "users": {
-        "1":{
-            "name":"IronMan",
-            "password":"racecar"
-        },
-        "2":{
-           "name" :"CaptainAmerica",
-           "password":"racecar"
-        },
-        "3":{
-           "name" :"SpiderMan",
-           "password":"racecar"
-        },
-        "4":{
-           "name" :"Hulk",
-           "password":"racecar"
-        }
+  ],
+  "users": [
+    {
+      "name": "Ironman",
+      "password": "racecar",
+      "age": "44",
+      "email": "ironman2@marvel.com",
+      "gender": "Male",
+      "role": "Admin",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "name": "Captain America",
+      "password": "racecar",
+      "age": "35",
+      "email": "captainamerica@marvel.com",
+      "gender": "Male",
+      "role": "Admin"
+    },
+    {
+      "id": 3,
+      "name": "SpiderMan",
+      "password": "racecar",
+      "age": 23,
+      "email": "superhero@marvel.com",
+      "gender": "Male",
+      "role": "User"
+    },
+    {
+      "id": 4,
+      "name": "Hulk",
+      "password": "racecar",
+      "age": 23,
+      "email": "superhero@marvel.com",
+      "gender": "Male",
+      "role": "User"
+    },
+    {
+      "id": 5,
+      "name": "wonder women",
+      "email": "superhero@marvel.com",
+      "age": "30",
+      "gender": "Female",
+      "role": "User",
+      "password": "racecar"
     }
+  ]
 }

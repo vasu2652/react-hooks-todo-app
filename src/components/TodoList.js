@@ -16,7 +16,6 @@ import {
 const TodoList = () => {
   const { state:{ headers, baseUrl}, dispatch } = useContext(Store);
   const [open, setOpen] = useState(false);
-
   const [curTodo, setCurTodo] = useState("");
   const [curTodoId, setCurTodoId] = useState(null);
   const [todos, setTodos] = useState([]);
@@ -25,8 +24,7 @@ const TodoList = () => {
     setCurTodo(todos[id])
     setOpen(true);
   };
-
-  
+ 
   const handleEdit = () => {
     setOpen(false)
     todos[curTodoId] = curTodoId
@@ -44,8 +42,6 @@ const TodoList = () => {
   const handleClose = () =>{
     setOpen(false);
   }
-
-  
   
   useEffect(()=>{
     fetch(`${baseUrl}/todos`).then(res=>res.json()).then(setTodos)
