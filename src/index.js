@@ -27,7 +27,6 @@ const App = () => {
 
   return (
     <Container>
-      
         <Store.Provider value={{ state, dispatch }}>
           <ThemeProvider theme={theme}>
           <Router>
@@ -36,7 +35,6 @@ const App = () => {
             </Router>
           </ThemeProvider>
         </Store.Provider>
-      
     </Container>
   );
 };

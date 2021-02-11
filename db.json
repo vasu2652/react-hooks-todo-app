@@ -43,13 +43,13 @@
       "role": "User"
     },
     {
-      "id": 5,
-      "name": "wonder women",
-      "email": "superhero@marvel.com",
-      "age": "30",
-      "gender": "Female",
+      "id": "2021-02-05T02:31:28.150Z",
+      "username": "Vasudev Paloju",
+      "email": "palojuvasudev05@gmail.com",
+      "age": 30,
+      "gender": "Male",
       "role": "User",
-      "password": "racecar"
+      "password": "1234567890"
     }
   ]
 }
