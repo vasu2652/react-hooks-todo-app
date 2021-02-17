@@ -1,10 +1,11 @@
 {
-    "todos":{
-        "1":[],
-        "2":[],
-        "3":[],
-        "4":[]
-    },
+    "todos":[
+        { "id": 0, "text": "Learn React", "completed": true },
+        { "id": 1, "text": "Learn Redux", "completed": false, "color": "purple" },
+        { "id": 2, "text": "Build something fun!", "completed": false, "color": "blue" },
+        { "id": 3, "text": "Learn Redux Thunk", "completed": true }
+
+    ],
     "users": {
         "1":{
             "name":"IronMan",
@@ -22,5 +23,8 @@
            "name" :"Hulk",
            "password":"racecar"
         }
+    },
+    "counter":{
+        "value": 0
     }
 }
