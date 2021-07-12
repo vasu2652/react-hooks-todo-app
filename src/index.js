@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from "react";
+import React, {  } from "react";
 import ReactDOM from "react-dom";
 import { Provider } from 'react-redux'
 import store from './store';
@@ -8,8 +8,7 @@ import store from './store';
 // import { usePersistedContext, usePersistedReducer } from "./usePersist";
 
 // Metarial-UI Theme(Dark or Light)
-import { ThemeProvider } from "@material-ui/core/styles";
-import { createMuiTheme, CssBaseline, Container } from "@material-ui/core";
+import { CssBaseline, Container } from "@material-ui/core";
 import Counter from "./components/Counter";
 import TodoApp from "./components/TodoApp";
 

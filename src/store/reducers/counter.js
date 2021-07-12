@@ -22,7 +22,6 @@ export const getCounterValue = (state)=>state.counter.value
 export default (state=initialState, action)=>{
     switch(action.type){
         case 'increment':{
-            console.log('hihi')
            return {
                value : state.value +1 
            }
